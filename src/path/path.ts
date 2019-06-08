@@ -54,6 +54,9 @@ export class Path<ParamNameT extends string> {
         if (part.length > 1 && part[part.length-1] == "/") {
             throw new Error(`part must not end with "/", ${part}`);
         }
+        part = part
+            .replace(/\/{2,}/g, "/")
+            .replace(/\/$/g, "");
 
         return new Path(
             [...this.parts, part],
