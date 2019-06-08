@@ -25,6 +25,11 @@ import {
     deepMergeQuery,
 } from "./operation";
 import {MethodOf, getMethod} from "./query";
+import {
+    IsValid,
+    isValid,
+    assertValid,
+} from "./predicate";
 
 /**
     TODO Does the "CONNECT" method make sense?
@@ -156,6 +161,13 @@ export class Route<DataT extends RouteData> {
 
     deepMergeQuery<F extends tm.AnySafeMapper> (f : F) : DeepMergeQuery<this, F> {
         return deepMergeQuery<this, F>(this, f);
+    }
+
+    isValid () : IsValid<this> {
+        return isValid(this);
+    }
+    assertValid () : void {
+        assertValid(this);
     }
 }
 /**
