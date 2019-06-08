@@ -1,0 +1,9 @@
+[
+  {
+    "messageText": "The 'this' context of type 'Route<{ readonly method: Method.Contextual; readonly path: Path<\"userId\" | \"journalId\" | \"pageId\">; readonly param: FluentMapper<Mapper<unknown, { userId: bigint; journalId: string; pageId: bigint; }> & ExpectedInput<{ userId: bigint; journalId: string; pageId: bigint; }> & MappableInput<...>>; readonly query: undef...' is not assignable to method's 'this' of type '[\"Cannot .appendParam() after .setParam()\", \"Call .unsetParam() first\"]'.",
+    "code": 2684,
+    "category": 1,
+    "length": 7,
+    "start": 470
+  }
+]
