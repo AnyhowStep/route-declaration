@@ -1,6 +1,6 @@
 {
   "name": "route-declaration",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Declare HTTP routes with run-time data mapping",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,6 +17,10 @@
   },
   "author": "anyhowstep",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnyhowStep/route-declaration"
+  },
   "devDependencies": {
     "@types/diff": "^4.0.2",
     "@types/tape": "^4.2.33",
