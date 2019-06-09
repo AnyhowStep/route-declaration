@@ -1,6 +1,6 @@
 {
   "name": "route-declaration",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Declare HTTP routes with run-time data mapping",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,6 +30,6 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "type-mapping": "^1.1.5"
+    "type-mapping": "^1.4.0"
   }
 }
