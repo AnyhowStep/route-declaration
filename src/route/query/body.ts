@@ -7,7 +7,7 @@ import {RouteData} from "../route";
 export type ServerBody<DataT extends RouteData> = (
     DataT["body"] extends tm.AnySafeMapper ?
     tm.OutputOf<DataT["body"]> :
-    undefined
+    {}
 );
 
 /**

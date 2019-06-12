@@ -26,6 +26,8 @@ export declare const server: {
     x: bigint;
     y: bigint | undefined;
     z: bigint | undefined;
+} & {
+    [key: string]: string | string[] | undefined;
 };
 export declare const clientExpected: {
     x: bigint;

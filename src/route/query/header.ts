@@ -6,8 +6,15 @@ import {RouteData} from "../route";
 */
 export type ServerHeader<DataT extends RouteData> = (
     DataT["header"] extends tm.AnySafeMapper ?
-    tm.OutputOf<DataT["header"]> :
-    undefined
+    (
+        & tm.OutputOf<DataT["header"]>
+        & {
+            [key : string] : string | (string[]) | undefined
+        }
+    ) :
+    {
+        [key : string] : string | (string[]) | undefined
+    }
 );
 
 /**
