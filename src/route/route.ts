@@ -23,6 +23,9 @@ import {
     setResponse,
     DeepMergeQuery,
     deepMergeQuery,
+    AppendParamField,
+    appendParamField,
+    AssertValidParamField,
 } from "./operation";
 import {MethodOf, getMethod} from "./query";
 import {
@@ -125,8 +128,21 @@ export class Route<DataT extends RouteData> {
         this : AssertCanAppendParam<this>,
         name : NameT,
         regex? : RegExp
-    ) : AppendParam<DataT, NameT> {
-        return appendParam(this, name, regex);
+    ) : AppendParam<DataT, NameT>;
+    appendParam<FieldT extends tm.AnyField> (
+        this : this,
+        field : AssertValidParamField<FieldT>,
+        regex? : RegExp
+    ) : AppendParamField<DataT, FieldT>;
+    appendParam (
+        nameOrField : string|tm.AnyField,
+        regex? : RegExp
+    ) {
+        if (typeof nameOrField == "string") {
+            return appendParam(this as AssertCanAppendParam<this>, nameOrField, regex);
+        } else {
+            return appendParamField(this, nameOrField, regex);
+        }
     }
     setParam<F extends tm.AnySafeMapper> (
         f : AssertCanSetParam<DataT, F>,

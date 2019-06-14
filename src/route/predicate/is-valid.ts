@@ -1,3 +1,4 @@
+import * as tm from "type-mapping";
 import {RouteData} from "../route";
 import {ParamNameOf} from "../query";
 
@@ -13,6 +14,15 @@ export type IsValid<DataT extends RouteData> = (
     true
 );
 
+export type NonStringMappableKeys<F extends tm.AnySafeMapper> = (
+    {
+        [k in Extract<keyof tm.MappableInputOf<F>, string>] : (
+            Extract<tm.MappableInputOf<F>[k], string> extends never ?
+            k :
+            never
+        )
+    }[Extract<keyof tm.MappableInputOf<F>, string>]
+);
 /**
     For now, a `Route`'s validity is just determined
     by its path param parts and param mapper.
@@ -20,12 +30,19 @@ export type IsValid<DataT extends RouteData> = (
 export type AssertValid<DataT extends RouteData> = (
     ParamNameOf<DataT> extends never ?
     DataT :
-    undefined extends DataT["param"] ?
+    DataT["param"] extends tm.AnySafeMapper ?
+    (
+        NonStringMappableKeys<DataT["param"]> extends never ?
+        DataT :
+        [
+            "These params must also map string",
+            NonStringMappableKeys<DataT["param"]>
+        ]
+    ) :
     [
         "You must call .setParam() on the route declaration for params",
         ParamNameOf<DataT>
-    ] :
-    DataT
+    ]
 );
 
 export function isValid<DataT extends RouteData> (data : DataT) : IsValid<DataT> {

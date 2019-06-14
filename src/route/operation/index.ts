@@ -1,3 +1,4 @@
+export * from "./append-param-field";
 export * from "./append-param";
 export * from "./append";
 export * from "./deep-merge-query";

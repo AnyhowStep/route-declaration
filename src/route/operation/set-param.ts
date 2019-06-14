@@ -1,6 +1,7 @@
 import * as tm from "type-mapping";
 import {PathUtil} from "../../path";
 import {RouteData, Route} from "../route";
+import { NonStringMappableKeys } from "../predicate";
 
 export type SetParam<DataT extends RouteData, F extends tm.AnySafeMapper> = (
     Route<{
@@ -20,21 +21,11 @@ export type AssertCanSetParam<DataT extends RouteData, F extends tm.AnySafeMappe
     (
         keyof tm.MappableInputOf<F> extends keyof PathUtil.RawParamOf<DataT["path"]> ?
         (
-            PathUtil.RawParamOf<DataT["path"]> extends tm.MappableInputOf<F> ?
+            NonStringMappableKeys<F> extends never ?
             F :
             [
                 "You must have string as MappableInput<> for these parameter names",
-                {
-                    [k in {
-                        [k in keyof tm.MappableInputOf<F>] : (
-                            string extends tm.MappableInputOf<F>[k] ?
-                            never :
-                            k
-                        )
-                    }[keyof tm.MappableInputOf<F>]] : (
-                        tm.MappableInputOf<F>[k]
-                    )
-                }
+                NonStringMappableKeys<F>
             ]
         ) :
         [
